@@ -1,0 +1,81 @@
+/* (A) WHOLE PAGE */
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+  }
+  body {
+    max-width: 600px;
+    padding: 20px;
+    margin: 0 auto;
+    background: #f5f5f5;
+  }
+  
+  /* (B) SYSTEM MESSAGE */
+  div.note {
+    padding: 15px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    background: #ffdddd;
+  }
+  
+  /* (C) GUEST BOOK ENTRIES */
+  .gb-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  .gb-ico {
+    flex-shrink: 0;
+    width: 50px;
+    margin-right: 10px;
+  }
+  .gb-msg {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .gb-comment {
+    width: 100%;
+    margin-bottom: 3px;
+    font-size: 20px;
+  }
+  .gb-name, .gb-date { font-size: 14px; }
+  .gb-name {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #eb7e7e;
+    margin-right: 5px;
+  }
+  .gb-date {
+    flex-grow: 1;
+    color: #6a6a6a;
+  }
+  
+  /* (D) SIGN GUESTBOOK */
+  #gb-form {
+    margin-top: 20px;
+    display: grid;
+    grid-template-areas: "a a a" "b c d";
+    grid-gap: 10px;
+  }
+  #gb-form * {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: 0;
+  }
+  #gb-form textarea, #gb-form input[type=text], #gb-form input[type=email] {
+    border: 1px solid #e5e5e5;
+  }
+  #gb-form textarea {
+    grid-area: a;
+    height: 80px;
+  }
+  #gb-form input[type=text] { grid-area: b; }
+  #gb-form input[type=email] { grid-area: c; }
+  #gb-form input[type=submit] {
+    grid-area: d;
+    font-weight: 700;
+    color: #fff;
+    background: #cd3737;
+    cursor: pointer;
+  }
