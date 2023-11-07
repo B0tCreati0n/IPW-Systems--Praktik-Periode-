@@ -34,7 +34,7 @@
                 
 
                 function B0tAddNewPollAnswer() {
-                    if ($_SESSION["B0tAnswareCounter"] < 10) {
+                    if ($_SESSION["B0tAnswareCounter"] <= 10) {
                         $_SESSION["B0tAnswareCounter"]++;
                         echo "<br> \n" . '<input type="text" placeholder="Answer ' . $_SESSION["B0tAnswareCounter"] . '" name="Answer' . $_SESSION["B0tAnswareCounter"] . '" id="B0tNewPollAnswer' . $_SESSION["B0tAnswareCounter"] . '" minlength="5" maxlength="32"> ';
                 }};
@@ -55,3 +55,7 @@
     </div>
 </body>
 </html>
+
+
+
+<!--changed max length to 9 insted of 10
