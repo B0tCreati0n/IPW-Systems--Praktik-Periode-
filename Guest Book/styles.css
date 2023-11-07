@@ -18,14 +18,25 @@ body {
 }
 
 .buttomSection {
-    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 2px;
 }
 
-form {
+.form-container {
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.comment-form {
     display: flex;
     flex-direction: column;
-    max-width: 500px;
-    justify-content: center;
 }
 
 input[type="text"] {
@@ -33,16 +44,15 @@ input[type="text"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    justify-content: center;
+    width: 500px;
 }
 
-input[type="button"] {
+.submit-button {
     background-color: #336699;
     color: #fff;
     border: none;
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
-    height: 50px;
-    justify-content: center;
+    font-weight: bold;
 }

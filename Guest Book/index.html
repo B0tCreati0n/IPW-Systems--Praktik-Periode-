@@ -13,15 +13,16 @@
     </div>
     <!--Middle Section-->
     <div class="middleSection">
-        <!-- Display comments here -->
+        <!-- comments here -->
     </div>
     <!--Bottom Section-->
     <div class="buttomSection">
-        <form action="addComment.php" method="post">
-            <input type="text" name="B0tuserName" id="B0tuserNameBox" placeholder="Your Name">
-            <input type="text" name="B0tuserComment" id="B0tcommentBox" placeholder="Your Comment">
-            <input type="submit" value="Send">
-        </form>
-    </div>
+        <div class="form-container">
+            <form action="addComment.php" method="post" class="comment-form">
+                <input type="text" name="userName" id="userNameBox" placeholder="Your Name">
+                <input type="text" name="userComment" id="commentBox" placeholder="Your Comment">
+                <input type="submit" value="Send" class="submit-button">
+            </form>
+        </div>
 </body>
 </html>
