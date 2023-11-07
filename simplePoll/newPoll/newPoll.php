@@ -1,3 +1,12 @@
+<?php 
+    session_start();
+
+    
+    if (!isset($_SESSION["B0tAnswareCounter"])) {
+        $_SESSION["B0tAnswareCounter"] = 2;
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +30,26 @@
                 <input type="text" placeholder="Answer 1" name="Answer 1" id="B0tNewPollAnswer1" minlength="5" maxlength="32">
                 <br>
                 <input type="text" placeholder="Answer 2" name="Answer 2" id="B0tNewPollAnswer2" minlength="5" maxlength="32">
+                <?php 
+                
+
+                function B0tAddNewPollAnswer() {
+                    if ($_SESSION["B0tAnswareCounter"] < 11) {
+                        $_SESSION["B0tAnswareCounter"]++;
+                        echo "<br> \n" . '<input type="text" placeholder="Answer ' . $_SESSION["B0tAnswareCounter"] . '" name="Answer' . $_SESSION["B0tAnswareCounter"] . '" id="B0tNewPollAnswer' . $_SESSION["B0tAnswareCounter"] . '" minlength="5" maxlength="32"> ';
+                }};
+
+                if (isset($_POST['B0tNewPollAddAnswerBtn'])) {
+                    // Call the PHP function
+                    B0tAddNewPollAnswer();
+                }
+
+                ?>
                 <br>
-                <input type="button" value="Add Answer" id="B0tNewPollAddAnswerBtn">
+                <input type="submit" value="Add Answer"  name="B0tNewPollAddAnswerBtn" id="B0tNewPollAddAnswerBtn" >
                 <br>
                 <br>
-                <input type="button" value="Submit" id="B0tNewPollSubmitBtn">
+                <input type="submit" value="Submit" name="B0tNewPollSubmitBtn" id="B0tNewPollSubmitBtn">
             </form>
         </div>
     </div>
