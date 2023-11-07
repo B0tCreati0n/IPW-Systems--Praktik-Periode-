@@ -45,11 +45,11 @@ class GuestBook {
 }
 
 // (E) DATABASE SETTINGS - CHANGE TO YOUR OWN !
-define("DB_HOST", "localhost");
-define("DB_NAME", "test");
+define("DB_HOST", "127.0.0.1");
+define("DB_NAME", "guest book");
 define("DB_CHARSET", "utf8mb4");
 define("DB_USER", "root");
-define("DB_PASSWORD", "");
+define("DB_PASSWORD", null);
 
 // (F) NEW GUEST BOOK OBJECT
 $_GB = new GuestBook();
