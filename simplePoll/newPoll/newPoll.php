@@ -63,20 +63,26 @@ function B0tSaveFormData() {
     $B0tGetAnsware = array();
 
     for ($i = 1; $i <= 9; $i++) {
-        $answerKey = "Answer" . $i;
-        if (isset($_POST[$answerKey])) {
-            $B0tGetAnsware[] = $_POST[$answerKey];
+        $B0tPollAnswares = "Answer" . $i;
+        if (isset($_POST[$B0tPollAnswares])) {
+            $B0tGetAnsware[] = $_POST[$B0tPollAnswares];
         }
     }
     $B0tGetPollName = $_POST["pollName"];
     $B0tGetPollEmail = $_POST["email"];
 
-};
 
+}
 if (isset($_POST['B0tNewPollSubmitBtn'])) {
     // Call the PHP function
     B0tSaveFormData();
 };
+
+
+
+
+
+
 
 
 ?>

@@ -4,9 +4,9 @@ CREATE TABLE `pollQustions` (
     `pollAnswer` bigint NOT NULL,
     `pollAnswerVotes` bigint NOT NULL,
     `pollStatus` tinyint NOT NULL,
-    `timeStamp` timeStamp NOT NULL DEFAULT unix_timestamp
+    `timeStamp` timeStamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 ALTER TABLE `pollQustions`
     ADD PRIMARY KEY (`pollId`);
-    ADD KEY (`timestamp`);
+    ADD KEY `timeStamp` (`timeStamp`);

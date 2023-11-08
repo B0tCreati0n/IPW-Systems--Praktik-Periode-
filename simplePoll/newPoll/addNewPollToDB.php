@@ -19,23 +19,30 @@ class Pools {
     $this->stmt = null;
   }
 
-  // (C) GET POOLS ENTRIES
-  function get ($pid) {
-    $this->stmt = $this->pdo->prepare(
-      "SELECT * FROM `guestbook` WHERE `post_id`=? ORDER BY `datetime` DESC"
-    );
-    $this->stmt->execute([$pid]);
-    return $this->stmt->fetchall();
-  }
+  // (C) SAVE FORM
 
-  // (D) SAVE GUEST BOOK ENTRY
-  function save ($pid, $email, $name, $comment, $date=null) {
+  // Find the the higest id in the database, and create a new one
+  function B0tGetPollId($B0tDBPollId) {
+    $this->stmt = $this->pdo->prepare(
+      "SELECT MAX(`pollId`) FROM `Polls`"
+    );
+    $_SESSION["B0tDBPollID"] = $B0tDBPollId;
+    print_r($_SESSION["B0tDBPollID"]);
+    $this->stmt->execute();
+    return $this->stmt->fetchColumn();
+}
+
+
+  //save all the data to the database
+  
+  function B0tPollSave ($B0tPollId, $B0tGetPollName, $name, $B0tGetAnsware, $date=null) {
+    $B0tPollId = ++ $_SESSION["B0tDBPollID"];
     if ($date==null) { $date = date("Y-m-d H:i:s"); }
     try {
       $this->stmt = $this->pdo->prepare(
-        "REPLACE INTO " . DB_NAME . " (`post_id`, `email`, `name`, `comment`, `datetime`) VALUES (?,?,?,?,?)"
+        "REPLACE INTO `Polls` (`pollId`, `pollQustion`, `pollAnswer`, `pollAnswerVotes`, `pollStatus`, `datetime`) VALUES (?,?,?,?,?)"
       );
-      $this->stmt->execute([$pid, $email, $name, strip_tags($comment), $date]);
+      $this->stmt->execute([$B0tPollId, $B0tGetPollName, $name, $B0tGetAnsware, $date]);
       return true;
     } catch (Exception $ex) {
       $this->error = $ex->getMessage();
@@ -46,7 +53,7 @@ class Pools {
 
 // (E) DATABASE SETTINGS - CHANGE TO YOUR OWN !
 define("DB_HOST", "127.0.0.1");
-define("DB_NAME", "Polls");
+define("DB_NAME", "pools");
 define("DB_CHARSET", "utf8mb4");
 define("DB_USER", "root");
 define("DB_PASSWORD", null);
