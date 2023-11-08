@@ -32,13 +32,13 @@
                 <input type="text" placeholder="Answer 2" name="Answer2" id="B0tNewPollAnswer2" minlength="5" maxlength="32">
                 <?php 
                 function B0tAddNewPollAnswer() {
-                    if ($_SESSION["B0tAnswareCounter"] < 10) {
+                    if ($_SESSION["B0tAnswareCounter"] <= 9) {
                         $_SESSION["B0tAnswareCounter"]++; 
                     }
                 };
 
                 for ($i = 2; $i <= $_SESSION["B0tAnswareCounter"]; $i++) {
-                    echo "<br> \n" . '<input type="text" placeholder="Answer ' . ($i + 1) . '" name="Answer' . ($i + 1) . '" id="B0tNewPollAnswer' . ($i + 1) . '" minlength="5" maxlength="32"> ';
+                    echo "<br> \n" . '<input type="text" placeholder="Answer ' . $i + 1 . '" name="Answer' . $i + 1 . '" id="B0tNewPollAnswer' . $i + 1 . '" minlength="5" maxlength="32"> ';
                 }
 
                 if (isset($_POST['B0tNewPollAddAnswerBtn'])) {
@@ -69,7 +69,8 @@ function B0tSaveFormData() {
         }
     }
     $B0tGetPollName = $_POST["pollName"];
-    $B0tGetPollEmail = $_POST["email"];
+    $B0tGetPollEmail = $_POST["B0tAutoherEmail"];
+
 
 
 }
@@ -77,12 +78,4 @@ if (isset($_POST['B0tNewPollSubmitBtn'])) {
     // Call the PHP function
     B0tSaveFormData();
 };
-
-
-
-
-
-
-
-
 ?>
