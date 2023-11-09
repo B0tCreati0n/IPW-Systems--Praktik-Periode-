@@ -32,9 +32,11 @@
                 <input type="text" placeholder="Answer 2" name="Answer2" id="B0tNewPollAnswer2" minlength="5" maxlength="32">
                 <?php 
                 function B0tAddNewPollAnswer() {
-                    if ($_SESSION["B0tAnswareCounter"] <= 9) {
+                    if ($_SESSION["B0tAnswareCounter"] <= 5) {
                         $_SESSION["B0tAnswareCounter"]++; 
                     }
+                    header("Location: ./");
+                    exit();
                 };
 
                 for ($i = 2; $i <= $_SESSION["B0tAnswareCounter"]; $i++) {
