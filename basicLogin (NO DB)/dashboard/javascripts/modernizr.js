@@ -294,9 +294,9 @@ window.Modernizr = (function( window, document, undefined ) {
     /**
      * setCssAll extrapolates all vendor-specific css strings.
      */
-    function setCssAll( str1, str2 ) {
-        return setCss(prefixes.join(str1 + ';') + ( str2 || '' ));
-    }
+    //function setCssAll( str1, str2 ) {
+      //  return setCss(prefixes.join(str1 + ';') + ( str2 || '' ));
+    // }
 
     /**
      * is returns a boolean for if typeof obj is exactly type.
