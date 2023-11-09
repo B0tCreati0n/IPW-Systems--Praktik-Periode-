@@ -13,6 +13,19 @@
     if (isset($_POST['B0tNewPollSubmitBtn'])) {
         // Call the PHP function
         B0tSaveFormData();
+        // Session token to keep
+        $sessionToKeep = 'B0tUserIdToken';
+
+        // Loop through all session variables
+        foreach ($_SESSION as $key => $value) {
+            // Check if the variable name is not the one you want to keep
+            if ($key !== $sessionToKeep) {
+                // Unset the session variable
+                unset($_SESSION[$key]);
+            }
+        }
+
+        // Destroy the session
         session_destroy();
         Header("Location: ./success.html");
         exit();
@@ -26,20 +39,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Poll</title>
-    <link rel="stylesheet" href="./newPoll.css">
+
 </head>
 <body>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #4e91cc; /* Light Blue background */
+        }
+
+        .container {
+            width: 600px;
+            margin: 25px 0;
+            background-color: white;
+            padding: 20px;
+            border-radius: 15px; /* Rounded edges */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a modern look */
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .forms {
+            margin-top: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="submit"] {
+            width: 80%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4caf50; /* Green Submit button */
+            color: white;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
     <div class="container">
-        <div>
+        <div class="title">
             <h1>New Poll Creator</h1>
         </div>
-        <div>
+        <div class="forms">
             <form method="POST">
-                <p>Please enter your email</p>
-                <input type="email" placeholder="example@example.com" name="B0tPollAutorEmail" id="B0tNewPollCreaterEmail" maxlength="255">
-                <p>Poll Name</p>
+                <label>Please enter your email</label>
+                <input type="email" placeholder="example@example.com" name="userEmail" id="userEmail" maxlength="255">
+                <label>Poll Name</label>
                 <input type="text" placeholder="Poll Name" name="B0tPollName" id="B0tNewPollName" minlength="5" maxlength="64">
-                <p>Answers</p>
+                <label>Answers</label>
                 <input type="text" placeholder="Answer 1" name="B0tPollAnswer1" id="B0tNewPollAnswer1" minlength="5" maxlength="32">
                 <br>
                 <input type="text" placeholder="Answer 2" name="B0tPollAnswer2" id="B0tNewPollAnswer2" minlength="5" maxlength="32">
