@@ -1,12 +1,17 @@
 <?php 
-    ini_set('session.cookie_lifetime', 900);
     session_start();
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+    // Session token to keep
+    $sessionToKeep = 'B0tUserIdToken';
 
-    
+    // Set the lifespan for the specified session token
+    $_SESSION[$sessionToKeep.'_expires'] = time() + 31536000;
+
     if (!isset($_SESSION["B0tAnswareCounter"])) {
         $_SESSION["B0tAnswareCounter"] = 2;
+    };
+    // Destroy the session if the specified token exceeds its lifespan
+    if ($_SESSION[$sessionToKeep.'_expires'] < time()) {
+    session_destroy();
     };
     require "./addNewPollToDB.php";
 
@@ -15,15 +20,20 @@
         B0tSaveFormData();
         // Session token to keep
         $sessionToKeep = 'B0tUserIdToken';
-
         // Loop through all session variables
         foreach ($_SESSION as $key => $value) {
             // Check if the variable name is not the one you want to keep
-            if ($key !== $sessionToKeep) {
-                // Unset the session variable
-                unset($_SESSION[$key]);
+            if ($key !== $sessionToKeep.'_expires') {
+                // Set the default lifespan to 900 seconds for other session variables
+                $_SESSION[$key.'_expires'] = time() + 900;
+                
+                // Unset the session variable if it exceeds the default lifespan
+                if ($_SESSION[$key.'_expires'] < time()) {
+                    unset($_SESSION[$key]);
+                }
             }
         }
+
 
         // Destroy the session
         session_destroy();
