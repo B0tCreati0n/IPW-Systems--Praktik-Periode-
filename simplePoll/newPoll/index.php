@@ -1,12 +1,23 @@
 <?php 
     ini_set('session.cookie_lifetime', 900);
     session_start();
+    error_reporting(E_ALL);
+    ini_set('display_errors', 1);
 
     
     if (!isset($_SESSION["B0tAnswareCounter"])) {
         $_SESSION["B0tAnswareCounter"] = 2;
     };
     require "./addNewPollToDB.php";
+
+    if (isset($_POST['B0tNewPollSubmitBtn'])) {
+        // Call the PHP function
+        B0tSaveFormData();
+        session_destroy();
+        Header("Location: ./success.html");
+        exit();
+    };
+
 ?>
 
 <!DOCTYPE html>
@@ -78,15 +89,5 @@
         $B0tPollID = $DB->B0tGetPollId() ?? 0;
         $B0tPollID++;
         $DB->B0tPollSave($B0tPollID, $B0tGetPollName, $B0tAnswareToDB);
-        exit;
-
     }
-    if (isset($_POST['B0tNewPollSubmitBtn'])) {
-        // Call the PHP function
-        B0tSaveFormData();
-        $_SESSION["B0tAnswareCounter"] = null;
-        session_destroy();
-        header("Location: ./success.html");
-        exit();
-    };
 ?>
