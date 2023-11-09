@@ -63,27 +63,30 @@
 
 <!--Collect's information from FORM's-->
 <?php 
-function B0tSaveFormData() {
-    $B0tGetAnsware = array();
+    function B0tSaveFormData() {
+        $B0tGetAnsware = array();
 
-    for ($i = 1; $i <= 9; $i++) {
-        $B0tPollAnswares = "B0tPollAnswer" . $i;
-        if (isset($_POST[$B0tPollAnswares])) {
-            $B0tGetAnsware[] = $_POST[$B0tPollAnswares];
+        for ($i = 1; $i <= 9; $i++) {
+            $B0tPollAnswares = "B0tPollAnswer" . $i;
+            if (isset($_POST[$B0tPollAnswares])) {
+                $B0tGetAnsware[] = $_POST[$B0tPollAnswares];
+            }
         }
-    }
-    $B0tAnswareToDB = serialize($B0tGetAnsware);
-    $B0tGetPollName = $_POST["B0tPollName"];
-    $DB = new Pools;
-    $B0tPollID = $DB->B0tGetPollId() ?? 0;
-    $B0tPollID++;
-    $DB->B0tPollSave($B0tPollID, $B0tGetPollName, $B0tAnswareToDB);
-    exit;
+        $B0tAnswareToDB = serialize($B0tGetAnsware);
+        $B0tGetPollName = $_POST["B0tPollName"];
+        $DB = new Pools;
+        $B0tPollID = $DB->B0tGetPollId() ?? 0;
+        $B0tPollID++;
+        $DB->B0tPollSave($B0tPollID, $B0tGetPollName, $B0tAnswareToDB);
+        exit;
 
-}
-if (isset($_POST['B0tNewPollSubmitBtn'])) {
-    // Call the PHP function
-    B0tSaveFormData();
-    $_SESSION["B0tAnswareCounter"] = null;
-};
+    }
+    if (isset($_POST['B0tNewPollSubmitBtn'])) {
+        // Call the PHP function
+        B0tSaveFormData();
+        $_SESSION["B0tAnswareCounter"] = null;
+        session_destroy();
+        header("Location: ./success.html");
+        exit();
+    };
 ?>
