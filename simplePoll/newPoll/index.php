@@ -1,10 +1,12 @@
 <?php 
+    ini_set('session.cookie_lifetime', 900);
     session_start();
 
     
     if (!isset($_SESSION["B0tAnswareCounter"])) {
         $_SESSION["B0tAnswareCounter"] = 2;
-    }
+    };
+    require "./addNewPollToDB.php";
 ?>
 
 <!DOCTYPE html>
@@ -23,24 +25,24 @@
         <div>
             <form method="POST">
                 <p>Please enter your email</p>
-                <input type="email" placeholder="example@example.com" name="B0tAutoherEmail" id="B0tNewPollCreaterEmail" maxlength="255">
+                <input type="email" placeholder="example@example.com" name="B0tPollAutorEmail" id="B0tNewPollCreaterEmail" maxlength="255">
                 <p>Poll Name</p>
-                <input type="text" placeholder="Poll Name" name="pollName" id="B0tNewPollName" minlength="5" maxlength="64">
+                <input type="text" placeholder="Poll Name" name="B0tPollName" id="B0tNewPollName" minlength="5" maxlength="64">
                 <p>Answers</p>
-                <input type="text" placeholder="Answer 1" name="Answer1" id="B0tNewPollAnswer1" minlength="5" maxlength="32">
+                <input type="text" placeholder="Answer 1" name="B0tPollAnswer1" id="B0tNewPollAnswer1" minlength="5" maxlength="32">
                 <br>
-                <input type="text" placeholder="Answer 2" name="Answer2" id="B0tNewPollAnswer2" minlength="5" maxlength="32">
+                <input type="text" placeholder="Answer 2" name="B0tPollAnswer2" id="B0tNewPollAnswer2" minlength="5" maxlength="32">
                 <?php 
                 function B0tAddNewPollAnswer() {
-                    if ($_SESSION["B0tAnswareCounter"] <= 5) {
+                    if ($_SESSION["B0tAnswareCounter"] <= 8) {
                         $_SESSION["B0tAnswareCounter"]++; 
                     }
                     header("Location: ./");
                     exit();
                 };
 
-                for ($i = 2; $i <= $_SESSION["B0tAnswareCounter"]; $i++) {
-                    echo "<br> \n" . '<input type="text" placeholder="Answer ' . $i + 1 . '" name="Answer' . $i + 1 . '" id="B0tNewPollAnswer' . $i + 1 . '" minlength="5" maxlength="32"> ';
+                for ($i = 3; $i <= $_SESSION["B0tAnswareCounter"]; $i++) {
+                    echo "<br> \n" . '<input type="text" placeholder="Answer ' . $i . '" name="B0tPollAnswer' . $i . '" id="B0tNewPollAnswer' . $i . '" minlength="5" maxlength="32"> ';
                 }
 
                 if (isset($_POST['B0tNewPollAddAnswerBtn'])) {
@@ -65,19 +67,23 @@ function B0tSaveFormData() {
     $B0tGetAnsware = array();
 
     for ($i = 1; $i <= 9; $i++) {
-        $B0tPollAnswares = "Answer" . $i;
+        $B0tPollAnswares = "B0tPollAnswer" . $i;
         if (isset($_POST[$B0tPollAnswares])) {
             $B0tGetAnsware[] = $_POST[$B0tPollAnswares];
         }
     }
-    $B0tGetPollName = $_POST["pollName"];
-    $B0tGetPollEmail = $_POST["B0tAutoherEmail"];
-
-
+    $B0tAnswareToDB = serialize($B0tGetAnsware);
+    $B0tGetPollName = $_POST["B0tPollName"];
+    $DB = new Pools;
+    $B0tPollID = $DB->B0tGetPollId() ?? 0;
+    $B0tPollID++;
+    $DB->B0tPollSave($B0tPollID, $B0tGetPollName, $B0tAnswareToDB);
+    exit;
 
 }
 if (isset($_POST['B0tNewPollSubmitBtn'])) {
     // Call the PHP function
     B0tSaveFormData();
+    $_SESSION["B0tAnswareCounter"] = null;
 };
 ?>

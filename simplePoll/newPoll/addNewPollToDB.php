@@ -22,27 +22,23 @@ class Pools {
   // (C) SAVE FORM
 
   // Find the the higest id in the database, and create a new one
-  function B0tGetPollId($B0tDBPollId) {
+  function B0tGetPollId() {
     $this->stmt = $this->pdo->prepare(
-      "SELECT MAX(`pollId`) FROM `Polls`"
+      "SELECT MAX(`pollId`) FROM `pollqustions`"
     );
-    $_SESSION["B0tDBPollID"] = $B0tDBPollId;
-    print_r($_SESSION["B0tDBPollID"]);
     $this->stmt->execute();
     return $this->stmt->fetchColumn();
 }
 
 
   //save all the data to the database
-  
-  function B0tPollSave ($B0tPollId, $B0tGetPollName, $name, $B0tGetAnsware, $date=null) {
-    $B0tPollId = ++ $_SESSION["B0tDBPollID"];
+  function B0tPollSave ($B0tPollId, $B0tGetPollName, $B0tGetAnsware, $B0tPollAnsware = "", $B0tPollStatus = 1, $date=null) {
     if ($date==null) { $date = date("Y-m-d H:i:s"); }
     try {
       $this->stmt = $this->pdo->prepare(
-        "REPLACE INTO `Polls` (`pollId`, `pollQustion`, `pollAnswer`, `pollAnswerVotes`, `pollStatus`, `datetime`) VALUES (?,?,?,?,?)"
+        "REPLACE INTO `pollqustions` (`pollId`, `pollQustion`, `pollAnswer`, `pollAnswerVotes`, `pollStatus`, `timeStamp`) VALUES (?,?,?,?,?,?)"
       );
-      $this->stmt->execute([$B0tPollId, $B0tGetPollName, $name, $B0tGetAnsware, $date]);
+      $this->stmt->execute([$B0tPollId, $B0tGetPollName, $B0tGetAnsware, $B0tPollAnsware, $B0tPollStatus, $date]);
       return true;
     } catch (Exception $ex) {
       $this->error = $ex->getMessage();
