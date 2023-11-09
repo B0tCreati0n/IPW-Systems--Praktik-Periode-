@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Moved the function definition to the top for better organization
 function generateRandomString($length = 32) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -10,8 +11,6 @@ function generateRandomString($length = 32) {
 
     return $randomString;
 }
-
-session_start();
 
 // Session token to keep
 $sessionToKeep = 'B0tUserIdToken';
