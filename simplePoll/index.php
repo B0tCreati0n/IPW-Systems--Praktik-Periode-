@@ -4,7 +4,7 @@ function generateRandomString($length = 32) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $randomString = '';
 
-    for ($i = 0; $i < $length; $i++) {
+    for ($generateRandomStringi = 0; $generateRandomStringi < $length; $generateRandomStringi++) {
         $randomString .= $characters[rand(0, strlen($characters) - 1)];
     }
 
