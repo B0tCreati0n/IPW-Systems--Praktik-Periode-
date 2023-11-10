@@ -1,4 +1,5 @@
 <?php
+//Session Code | DO NOT EDIT!!! (Unless it is required)
 session_start();
 // Moved the function definition to the top for better organization
 function generateRandomString($length = 32) {
@@ -40,6 +41,15 @@ foreach ($_SESSION as $key => $value) {
 if ($_SESSION[$sessionToKeep.'_expires'] < time()) {
     session_destroy();
 }
+
+//Page Specific Code
+
+//Get the Poll from the DB
+function B0tGetPollFromDB($B0tGetPollFromDBNo) {
+    syslog(LOG_INFO, "Geting Poll no. " . $B0tGetPollFromDBNo);
+    
+};
+
 
 ?>
 
